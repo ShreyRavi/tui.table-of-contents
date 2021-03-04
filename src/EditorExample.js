@@ -35,7 +35,7 @@ const EditorExample = () => {
 
       <Editor
           previewStyle="vertical"
-          height="400px"
+          height="500px"
           initialEditType="wysiwyg"
           initialValue=""
           onChange={() => tuiTableOfContentsPlugin(editorRef)}
@@ -65,8 +65,8 @@ const EditorExample = () => {
               options: {
                   event: 'insertTableOfContents',
                   tooltip: 'Insert Table of Contents',
-                  text: 'T',
-                  style: 'color: black; border-color: black; background: white;'
+                  text: '📖',
+                  style: 'color: black; background: white;'
               }
           }
         ]}
