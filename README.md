@@ -15,7 +15,7 @@ To test, clone repo and run `npm install && npm start`.
 
 ## Instructions
 
-Use the 'T' button on the toolbar to insert a table of contents automatically at the beginning of the document.
+Use the 'open book'/Insert Table of Contents button on the toolbar to insert a table of contents automatically at the beginning of the document.
 
 ## WIP Disclaimer
 
