@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@toast-ui/editor": "^2.5.1",
     "@toast-ui/react-editor": "^2.5.1",
+    "node-html-parser": "^3.0.3",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-scripts": "4.0.3",

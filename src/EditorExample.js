@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import tuiTableOfContentsPlugin from './tuiTableOfContents';
+import { parse, TextNode } from 'node-html-parser';
 
 const useStyles = makeStyles({
   root: {
@@ -30,19 +31,32 @@ const EditorExample = () => {
   useEffect(() => {
     const editor = editorRef.current?.getInstance();
     const eventManager = editor.eventManager;
-    try {
-      eventManager.addEventType('insertTableOfContents');
-    } catch (error) {
-      // already loaded event
-    }
-  }, [editorRef]);
-  useEffect(() => {
-    const editor = editorRef.current?.getInstance();
-    const eventManager = editor.eventManager;
-    eventManager.listen('insertTableOfContents', function () {
-        console.log('citation');
+    eventManager.addEventType('insertTableOfContents');
+    eventManager.listen('insertTableOfContents', () => {
+        const insertTableOfContents = () => {
+          //HTML Approach
+          const html = parse(editor.getHtml());
+          console.log(html);
+          console.log(html.childNodes);
+          console.log(html.childNodes.filter((node) => ((node.tagName) && (node.tagName.match(/^[h|H][1-6]$/g)))));
+          console.log(html.childNodes.filter((node) => ((node.tagName) && (node.tagName.match(/^[h|H][1-6]$/g)) && (node.rawText !== "Table of Contents"))));
+
+          const headings = html.childNodes.filter((node) => ((node.tagName) && (node.tagName.match(/^[h|H][1-6]$/g)) && (node.rawText !== "Table of Contents"))).map((node) => node.rawText);
+          const tableOfContentHtmlString = `<h1>Table of Contents</h1><ol>${headings.map((heading) => `<li>${heading}</li>`).join('')}</ol>`;
+          const newHtml = html.firstChild.rawText === "Table of Contents" ? html.childNodes.slice(4).reduce((htmlResult, node) => {
+            if (node.outerHTML) {
+              return htmlResult + node.outerHTML;
+            } else if (node.innerText) {
+              return htmlResult + node.innerText;
+            } else {
+              return htmlResult;
+            }
+          }, '') : html.outerHTML;
+          editor.setHtml(tableOfContentHtmlString + newHtml);
+        };
+        insertTableOfContents();
     });
-  }, [editorRef]);
+  }, []);
   return (
     <div className={classes.root}>
       <Typography variant="h1">ToastUI Editor Table of Contents Example</Typography>
@@ -52,9 +66,9 @@ const EditorExample = () => {
       <Editor
           previewStyle="vertical"
           height="400px"
-          initialEditType="markdown"
+          initialEditType="wysiwyg"
           initialValue=""
-          plugins={[() => tuiTableOfContentsPlugin()]}
+          plugins={[() => tuiTableOfContentsPlugin(editorRef)]}
           ref={editorRef}
           toolbarItems={[
             'heading',
