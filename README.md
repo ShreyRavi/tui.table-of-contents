@@ -1,11 +1,11 @@
 # [tui.tableofcontents](https://shreyravi.github.io/tui.tableofcontents/)
 A table of contents custom plugin for Toast UI. Render a table of contents in real-time! 
 To test, clone repo and run `npm install && npm start`.
-<p align="center"><img src="https://github.com/ShreyRavi/tui.citation/raw/main/screenshot.png" height="93%" width="93%"></img>Screenshot of the demo of tui.tableofcontents Toast-UI Plugin.</p>
+<p align="center"><img src="https://github.com/ShreyRavi/tui.tableofcontents/raw/main/screenshot.png" height="93%" width="93%"></img>Screenshot of the demo of tui.tableofcontents Toast-UI Plugin.</p>
 
 ## How to Run
 
-1. Clone repository (`gh repo clone ShreyRavi/tui.citation` with Github CLI)
+1. Clone repository (`gh repo clone ShreyRavi/tui.tableofcontents` with Github CLI)
 
 2. Run `npm install` inside repository directory
 
@@ -24,8 +24,7 @@ The repository is meant to be a showcase and is not a final, finished product. D
 ## File Structure
 ### Primary Files
 - `src/EditorExample.js` - contains main React for example
-- `src/tuiCitation.js` - contains ToastUI plugin code
-- `src/App.test.js` - will contain unit tests _still in progress_
+- `src/tuiTableOfContents.js` - contains ToastUI plugin code
 ### Other Files
 - `screenshot.png` - a screenshot of the plugin in action
 - `README.md` - self-explanatory
