@@ -1,7 +1,7 @@
 # [tui.tableofcontents](https://shreyravi.github.io/tui.tableofcontents/)
 
-[![npm (scoped)](https://img.shields.io/npm/v/@shreyravi/tui-table-of-contents.svg)](https://www.npmjs.com/package/@shreyravi/tui-table-of-contents)
-[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@shreyravi/tui-table-of-contents.svg)](https://www.npmjs.com/package/@shreyravi/tui-table-of-contents)
+[![npm (scoped)](https://img.shields.io/npm/v/tui-table-of-contents.svg)](https://www.npmjs.com/package/@shreyravi/tui-table-of-contents)
+[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/tui-table-of-contents.svg)](https://www.npmjs.com/package/@shreyravi/tui-table-of-contents)
 
 A table of contents custom plugin for Toast UI. Render a table of contents in real-time.
 
