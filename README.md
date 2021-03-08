@@ -7,8 +7,6 @@ A table of contents custom plugin for Toast UI. Render a table of contents in re
 
 <p align="center"><img src="https://github.com/ShreyRavi/tui-editor-example/raw/main/screenshot.png" height="93%" width="93%"></img>Screenshot of the demo of tui.tableofcontents Toast-UI Plugin.</p>
 
-A package to help decrypt Caesar shift cipher-encrypted strings with an unknown shift value.
-
 ## Install
 ```
 $ npm install @shreyravi/tui-table-of-contents
