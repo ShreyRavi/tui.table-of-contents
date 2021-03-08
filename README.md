@@ -11,13 +11,27 @@ A package to help decrypt Caesar shift cipher-encrypted strings with an unknown 
 
 ## Install
 ```
-$ npm install @shreyravi/tui.table-of-contents
+$ npm install @shreyravi/tui-table-of-contents
 ```
 
 ## Usage
+
+1. Import the plugin:
 ```
-TBD
+import tableOfContentsPlugin from 'tui-table-of-contents';
 ```
+
+2. Insert into `ToastEditor` instance:
+```
+import { Editor } from '@toast-ui/react-editor';
+...
+      <Editor
+          plugins={[tableOfContentsPlugin]}
+      />
+...
+```
+
+3. Click on the "Toggle Table of Content" at end of Toolbar to show/hide the auto-generated table of contents. 
 
 ## License
 MIT License. Open Source. Contact [author](mailto:shrey@shreyravi.com) with any concerns.
