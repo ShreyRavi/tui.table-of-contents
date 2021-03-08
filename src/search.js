@@ -27,7 +27,7 @@ export function searchHeadings(md) {
  * single string. the input `headings` array is mutated
  */
 function bfsHeaderAccumulate(node, headings) {
-  if (node.type === 'heading') { // TODO how does this handle different header levels?
+  if (node.type === 'heading') {
     const level = node.level;
     const strHeader = stringContentAccumulate(node);
     headings.push({ name: strHeader, level });

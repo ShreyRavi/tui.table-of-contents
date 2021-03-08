@@ -5,7 +5,7 @@ import { Editor } from '@toast-ui/react-editor';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import tuiTableOfContentsPlugin from './tuiTableOfContents';
+import tableOfContentsPlugin from './tuiTableOfContents';
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 
 const EditorExample = () => {
   const classes = useStyles();
-  const editorRef = React.createRef();
   return (
     <div className={classes.root}>
       <Typography variant="h1">ToastUI Editor Table of Contents Example</Typography>
@@ -37,39 +36,7 @@ const EditorExample = () => {
           previewStyle="vertical"
           height="500px"
           initialEditType="wysiwyg"
-          initialValue=""
-          onChange={() => tuiTableOfContentsPlugin(editorRef)}
-          ref={editorRef}
-          toolbarItems={[
-            'heading',
-            'bold',
-            'italic',
-            'strike',
-            'divider',
-            'hr',
-            'quote',
-            'divider',
-            'ul',
-            'ol',
-            'task',
-            'divider',
-            'table',
-            'image',
-            'link',
-            'divider',
-            'code',
-            'codeblock',
-            'divider',
-            {
-              type: 'button',
-              options: {
-                  event: 'insertTableOfContents',
-                  tooltip: 'Insert Table of Contents',
-                  text: '📖',
-                  style: 'color: black; background: white;'
-              }
-          }
-        ]}
+          plugins={[tableOfContentsPlugin]}
           usageStatistics={false}
         />
     </div>
