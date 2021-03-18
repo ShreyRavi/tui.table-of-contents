@@ -9,7 +9,7 @@ A table of contents custom plugin for Toast UI. Render a table of contents in re
 
 ## Install
 ```
-$ npm install @shreyravi/tui-table-of-contents
+$ npm install tui-table-of-contents
 ```
 
 ## Usage
