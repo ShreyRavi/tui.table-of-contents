@@ -40,14 +40,20 @@ function generateList(elements, tocOptions) {
  * @param {String} tocInput Raw input from codeBlock (not used currently)
  */
 function renderTableOfContents(md, tocOptions) {
-  return `<h${tocOptions.headingSize}> ${tocOptions.title}</h${tocOptions.headingSize}><ol type="${tocOptions.bulletType}">${groupByLevel(searchHeadings(stripHtmlTags(md))).map(headings => generateList(headings, tocOptions)).join('')}</ol>`;
+  return `<h${tocOptions.headingSize}>
+            ${tocOptions.title}
+          </h${tocOptions.headingSize}>
+          <ol type="${tocOptions.bulletType}">
+            ${groupByLevel(searchHeadings(stripHtmlTags(md))).map(headings => generateList(headings, tocOptions)).join('')}
+          </ol>`;
 }
 
 function insertTableOfContents(editor, md,pluginOptions) {
   const el = document.querySelector(`#toc`);
   if (!el) { // if first time called, insert div
-    editor.setMarkdown(`<span id="toc"></span>\n${editor.getMarkdown()}`);
+    editor.setMarkdown(`\`\`\`toc\nTable of contents will be here\n\`\`\`\n${editor.getMarkdown()}`);
   } else {
+    // this should be actually setting the MD
     el.parentElement.removeChild(el);
   }
   updateTableOfContents(md, pluginOptions);
@@ -62,6 +68,17 @@ function updateTableOfContents(md, pluginOptions) {
 }
 
 function initUI(editor, pluginOptions) {
+  // TODO: can we trust markdownValue?
+  // TODO: this still doesn't seem to work for Editor instance. i think it's because the replacer probably hasn't run yet
+  // since we need the full document MD to be loaded into the editor to find headings, we wait to render the TOC
+  editor.on('load', () => {
+    console.log('load ran');
+    updateTableOfContents(editor.markdownValue, pluginOptions)
+  })
+  if (editor.isViewer()) {
+    return;
+  }
+
   editor.getUI().getToolbar().insertItem(-1, {
     type: 'button',
     options: {
@@ -84,6 +101,7 @@ function initUI(editor, pluginOptions) {
 export function tableOfContentsPlugin(editor, pluginOptions={title: "Table of Contents", headingSize: 1, bulletType: "1"}) {
   const { codeBlockManager } = Object.getPrototypeOf(editor).constructor;
   codeBlockManager.setReplacer('toc', (tocInput) => {
+    console.log('I ran!');
     return `<span id="toc"></span>`;
   });
   initUI(editor, pluginOptions);
@@ -94,7 +112,7 @@ export const tableOfContentsPluginCustomHTMLRenderer = {
       if (context.entering) {
         return {
           type: 'html',
-          content: `<h${node.level}><a id="${getHeadingId(node.firstChild.literal)}">`
+          content: `<h${node.level}><a style="text-decoration: none; color: black; cursor: auto;" id="${getHeadingId(node.firstChild.literal)}">`
         };
       } else {
         return {
