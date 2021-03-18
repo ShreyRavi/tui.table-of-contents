@@ -1,5 +1,9 @@
 import { searchHeadings } from './search';
 
+function getHeadingId(heading) {
+  return heading.replace(/\s/g, '').slice(0, 10);
+}
+
 function stripHtmlTags(md) {
   let doc = new DOMParser().parseFromString(md, 'text/html');
   return doc.body.textContent || "";
@@ -25,7 +29,7 @@ function groupByLevel(elements, result=[]) {
 
 function generateList(elements, tocOptions) {
   const { title, bulletType } = tocOptions;
-  return `${`<ol type="${bulletType}">`.repeat(elements[0].level - 1)}${elements.filter(element => element.name !== title).map(element => `<li>${element.name}</li>`).join('')}${"</ol>".repeat(elements[0].level - 1)}`;
+  return `${`<ol type="${bulletType}">`.repeat(elements[0].level - 1)}${elements.filter(element => element.name !== title).map(element => `<li><a href="#${getHeadingId(element.name)}">${element.name}</a></li>`).join('')}${"</ol>".repeat(elements[0].level - 1)}`;
 }
 
 /**
@@ -77,10 +81,26 @@ function initUI(editor, pluginOptions) {
  * @param {Editor|Viewer} editor Instance of Editor or Viewer from Toast UI
  * @param {{title: String,  headingSize: Number, bulletType: String}} pluginOptions An object of options for toc render, with title being the title of the Table of Contents, headingSize being the size of title, bulletType being type of bullet shown (eg. 1 = number, I = Roman numerals, i = lowercase Roman numerals) (WIP, not fully functional)
  */
-export default function tableOfContentsPlugin(editor, pluginOptions={title: "Table of Contents", headingSize: 1, bulletType: "1"}) {
+export function tableOfContentsPlugin(editor, pluginOptions={title: "Table of Contents", headingSize: 1, bulletType: "1"}) {
   const { codeBlockManager } = Object.getPrototypeOf(editor).constructor;
   codeBlockManager.setReplacer('toc', (tocInput) => {
     return `<span id="toc"></span>`;
   });
   initUI(editor, pluginOptions);
+}
+
+export const tableOfContentsPluginCustomHTMLRenderer = {
+    heading(node, context) {
+      if (context.entering) {
+        return {
+          type: 'html',
+          content: `<h${node.level}><a id="${getHeadingId(node.firstChild.literal)}">`
+        };
+      } else {
+        return {
+          type: 'html',
+          content: `</a></h${node.level}>`
+        };
+      }
+    },
 }
