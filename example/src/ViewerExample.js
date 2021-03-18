@@ -1,7 +1,7 @@
 import React from 'react';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
+import { Viewer } from '@toast-ui/react-editor';
 import {tableOfContentsPlugin, tableOfContentsPluginCustomHTMLRenderer} from 'tui-table-of-contents';
 
 const testMd = `
@@ -25,17 +25,16 @@ llonnnggggggg
 # revived
 `
 
-const EditorExample = () => {
+const ViewerExample = () => {
   return (
     <div>
-      <h1>ToastUI Editor Table of Contents Example</h1>
+      <h1>ToastUI Viewer Table of Contents Example</h1>
       <small>v1.0.0</small>
-      <Editor
+      <Viewer
         height="500px"
         initialEditType="wysiwyg"
         initialValue={testMd}
         plugins={[tableOfContentsPlugin]}
-        viewer={true}
         customHTMLRenderer={tableOfContentsPluginCustomHTMLRenderer}
         usageStatistics={false}
       />
@@ -43,4 +42,4 @@ const EditorExample = () => {
   );
 };
 
-export default EditorExample;
+export default ViewerExample;
