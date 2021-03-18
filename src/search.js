@@ -45,11 +45,10 @@ function bfsHeaderAccumulate(node, headings) {
 function stringContentAccumulate(node) {
   const children = getChildNodes(node);
   if (!children.length) {
-    // i'm not totally confident about how the AST is constructed.
-    // it may not always be the case that terminal nodes are text type, so we play it defensively.
+    // in case it's not always be the case that terminal nodes are text type, we play it defensively
     return node.type === 'text' ? node.literal : '';
   } else {
-    // i am making the assumption that non-terminal nodes will never have content to display in the heading
+    // assume non-terminal nodes will never have content to display in the heading
     const substrings = children.map((c) => stringContentAccumulate(c));
     return substrings.join('');
   }

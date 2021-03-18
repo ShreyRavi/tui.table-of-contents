@@ -40,7 +40,12 @@ function generateList(elements, tocOptions) {
  * @param {String} tocInput Raw input from codeBlock (not used currently)
  */
 function renderTableOfContents(md, tocOptions) {
-  return `<h${tocOptions.headingSize}> ${tocOptions.title}</h${tocOptions.headingSize}><ol type="${tocOptions.bulletType}">${groupByLevel(searchHeadings(stripHtmlTags(md))).map(headings => generateList(headings, tocOptions)).join('')}</ol>`;
+  return `<h${tocOptions.headingSize}>
+            ${tocOptions.title}
+          </h${tocOptions.headingSize}>
+          <ol type="${tocOptions.bulletType}">
+            ${groupByLevel(searchHeadings(stripHtmlTags(md))).map(headings => generateList(headings, tocOptions)).join('')}
+          </ol>`;
 }
 
 function insertTableOfContents(editor, md,pluginOptions) {
@@ -62,6 +67,9 @@ function updateTableOfContents(md, pluginOptions) {
 }
 
 function initUI(editor, pluginOptions) {
+  if (editor.isViewer()) {
+    return;
+  }
   editor.getUI().getToolbar().insertItem(-1, {
     type: 'button',
     options: {
@@ -94,7 +102,7 @@ export const tableOfContentsPluginCustomHTMLRenderer = {
       if (context.entering) {
         return {
           type: 'html',
-          content: `<h${node.level}><a id="${getHeadingId(node.firstChild.literal)}">`
+          content: `<h${node.level}><a style="text-decoration: none; color: black; cursor: auto;" id="${getHeadingId(node.firstChild.literal)}">`
         };
       } else {
         return {

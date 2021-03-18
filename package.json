@@ -12,5 +12,14 @@
     "toast ui",
     "table of contents",
     "markdown"
-  ]
+  ],
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "mocha": "^8.3.2"
+  },
+  "scripts": {
+    "test": "mocha -r esm src/test",
+    "example": "(cd example && npm start)"
+  },
+  "files": ["src/*", "!src/test"]
 }
